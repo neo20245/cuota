@@ -50,7 +50,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
-
+src/dist/
 # Translations
 *.mo
 *.pot
@@ -166,3 +166,6 @@ storage/
 .ruff_cache
 .sr1
 .sr2
+_your_laptop_makes_3_287_day_and_you_own_0_shoes_720p25fps_992.mp4
+*.mp4
+src/dist/
