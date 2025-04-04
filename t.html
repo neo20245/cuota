@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfermóvil - ETECSA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+        }
+        .header {
+            background-color: #0D47A1;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 200px;
+            background-color: white;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .menu a {
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            border-bottom: 1px solid #ddd;
+        }
+        .menu a:hover {
+            background-color: #f0f0f0;
+        }
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f0f0f0;
+            padding: 10px 0;
+        }
+        .tabs div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .tabs .active {
+            color: #FFA000;
+            font-weight: bold;
+        }
+        .options {
+            padding: 10px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .icon {
+            font-size: 24px;
+            margin-right: 10px;
+            color: #388E3C;
+        }
+        @media (max-width: 600px) {
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            .option {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+    <script>
+        function setActiveTab(tab) {
+            document.querySelectorAll('.tabs div').forEach(el => el.classList.remove('active'));
+            tab.classList.add('active');
+        }
+        function toggleMenu() {
+            let menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+        <h1>Transfermóvil - ETECSA</h1>
+    </div>
+    <div id="menu" class="menu">
+        <a href="#">Inicio</a>
+        <a href="#">Perfil</a>
+        <a href="#">Configuración</a>
+        <a href="#">Salir</a>
+    </div>
+    <div class="tabs">
+        <div onclick="setActiveTab(this)">SESIÓN</div>
+        <div class="active" onclick="setActiveTab(this)">CONSULTAS</div>
+        <div onclick="setActiveTab(this)">OPERACIONES</div>
+        <div onclick="setActiveTab(this)">CONFIGURACIÓN</div>
+    </div>
+    <div class="options">
+        <div class="option"><span class="icon">💲</span> Consultar Saldo</div>
+        <div class="option"><span class="icon">🧾</span> Consultar Servicio</div>
+        <div class="option"><span class="icon">📋</span> Últimas Operaciones</div>
+        <div class="option"><span class="icon">❓</span> Consulta de Límites</div>
+        <div class="option"><span class="icon">��</span> Consultar Todas las Cuentas</div>
+        <div class="option"><span class="icon">📨</span> Consulta Giros</div>
+        <div class="option"><span class="icon">📍</span> Localizar Transferencia</div>
+        <div class="option"><span class="icon">💱</span> Tipo de Cambio</div>
+        <div class="option"><span class="icon">⚖️</span> Consulta de Multa</div>
+        <div class="option"><span class="icon">💳</span> Información Tarjeta Red</div>
+    </div>
+</body>
+</html>
