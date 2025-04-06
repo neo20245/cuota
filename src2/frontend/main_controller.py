@@ -2,7 +2,7 @@ import flet as ft
 from frontend.view.main_view import MainViewPage
 
 
-class MainController():
+class MainController:
     def __init__(self, page: ft.Page):
         self.page = page
         self.configure_view()

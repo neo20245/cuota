@@ -5,6 +5,7 @@ from frontend.ui_components import (
     CustomContainer,
     CustomCheckbox,
     CustomTextField,
+    CustomElevatedButton,
 )
 
 
@@ -37,13 +38,20 @@ class MainViewPage:
         )
 
         # Asegúrate de usar un color válido
-
-        self.submit_button_container = ft.Container()
+        self.icon_summit = ft.Icon(ft.icons.PLAY_ARROW, color="white")
+        self.submit_button = CustomElevatedButton(self.icon_summit)
 
         self.progress_ring = ft.ProgressRing(
-            color="#D32F2F", bgcolor="#E0E0E0", width=150, height=150,
-            stroke_width=10, value=0.6)
-        self.progress_text = ft.Text("40/100", size=20, weight=ft.FontWeight.BOLD, color="black")
+            color=ft.Colors.INDIGO_500,
+            bgcolor="#E0E0E0",
+            width=150,
+            height=150,
+            stroke_width=10,
+            value=0.6,
+        )
+        self.progress_text = ft.Text(
+            "40/100", size=20, weight=ft.FontWeight.BOLD, color="black"
+        )
 
     def build_ui(self):
         """Build the full UI layout"""
@@ -68,7 +76,6 @@ class MainViewPage:
                 expand=True,
                 alignment=ft.alignment.center,
             ),
-            bgcolor=ft.colors.BLUE_100,
         )
 
     def _build_input_section(self):
@@ -86,11 +93,15 @@ class MainViewPage:
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
-            bgcolor=ft.colors.RED_500,
         )
 
     def _build_submit_section(self):
-        self.submit_button_container.content = ft.IconButton(
+        return CustomContainer(
+            content=self.submit_button,
+        )
+
+    def _build_submit_section2(self):
+        self.status_message_container.content = ft.IconButton(
             icon=ft.icons.ARROW_FORWARD,
             icon_color=ft.colors.WHITE,
             bgcolor=ft.colors.GREEN_400,

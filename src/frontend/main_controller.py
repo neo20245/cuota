@@ -11,8 +11,8 @@ class MainController:
         self.build_ui()
 
     def configure_view(self):
-        self.page.window.width = 350
-        self.page.window.height = 600
+        self.page.window.width = 330
+        self.page.window.height = 560
         self.page.padding = 0
         self.page.window.frameless = True
 

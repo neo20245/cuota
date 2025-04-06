@@ -18,7 +18,7 @@ class CustomControllerBasePage(ft.Container):
         self.alignment = alignment
         self.padding = padding
         self.margin = margin
-        self.bgcolor = ft.Colors.BLUE_500
+        self.bgcolor = ft.Colors.BROWN_50
         self.border = border
         self.border_radius = border_radius
         self.width = width
@@ -105,4 +105,38 @@ class CustomCheckbox(ft.Checkbox):
         self.width = width
 
         self.scale = 1.0
+        self.tooltip = None
+
+
+class CustomElevatedButton(ft.ElevatedButton):
+    def __init__(
+        self,
+        content,
+        text=None,
+        icon=None,
+        on_click=None,
+        disabled=False,
+        bgcolor=None,
+        color=None,
+        width=50,
+        height=50,
+        size=25,
+        style=ft.ButtonStyle(shape=ft.CircleBorder(), bgcolor="#1976D2", padding=15),
+    ):
+        super().__init__()
+        self.content = content
+        self.text = text
+        self.icon = icon
+        self.style = style
+        self.on_click = on_click
+        self.disabled = disabled
+        self.bgcolor = bgcolor
+        self.color = color
+        self.width = width
+        self.height = height
+
+        self.style = ft.ButtonStyle(
+            shape=ft.RoundedRectangleBorder(radius=10),
+            elevation=3,
+        )
         self.tooltip = None
