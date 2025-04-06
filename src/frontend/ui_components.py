@@ -30,6 +30,7 @@ class CustomContainer(ft.Container):
     def __init__(
         self,
         content,
+        gradient=None,
         visible=True,
         padding=20,
         margin=0,
@@ -38,8 +39,11 @@ class CustomContainer(ft.Container):
         border_radius=None,
         width=None,
         height=None,
+        expand=False,
     ):
         super().__init__()
+        self.expand = expand
+        self.gradient = gradient
         self.content = content
         self.alignment = ft.alignment.center
         self.padding = padding
@@ -64,9 +68,14 @@ class CustomTextField(ft.TextField):
         password=False,
         bgcolor="white",
         border_radius=10,
+        suffix_icon=None,
+        height=None,
+        can_reveal_password=False,
     ):
         super().__init__()
-
+        self.height = height
+        self.focused_color = ft.Colors.INDIGO_500
+        self.suffix_icon = suffix_icon
         self.password = password
         self.label = label
         self.hint_text = hint_text
@@ -83,11 +92,14 @@ class CustomTextField(ft.TextField):
         self.bgcolor = bgcolor
         self.focused_color = ft.Colors.BLACK54
         self.text_size = 14
+        self.can_reveal_password = can_reveal_password
 
 
 class CustomCheckbox(ft.Checkbox):
     def __init__(
         self,
+        is_error=None,
+        color=None,
         label="",
         value=False,
         disabled=False,
@@ -96,7 +108,8 @@ class CustomCheckbox(ft.Checkbox):
         width=None,
     ):
         super().__init__()
-
+        self.active_color = ft.Colors.INDIGO_500
+        self.is_error = is_error
         self.label = label
         self.value = value
         self.disabled = disabled
@@ -120,7 +133,7 @@ class CustomElevatedButton(ft.ElevatedButton):
         color=None,
         width=50,
         height=50,
-        size=25,
+        size=15,
         style=ft.ButtonStyle(shape=ft.CircleBorder(), bgcolor="#1976D2", padding=15),
     ):
         super().__init__()
