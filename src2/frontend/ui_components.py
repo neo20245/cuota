@@ -1,24 +1,27 @@
 import flet as ft
 
 
-class CustomControllerBasePage(ft.Container):
+class CustomContolerBasePage(ft.Container):
     def __init__(
         self,
         content,
         alignment=None,
         padding=8,
         margin=0,
+        
         border=None,
         border_radius=None,
         width=None,
         height=None,
+        
+        
     ):
         super().__init__()
         self.content = content
         self.alignment = alignment
         self.padding = padding
         self.margin = margin
-        self.bgcolor = ft.Colors.BLUE_500
+        self.bgcolor= ft.Colors.BLUE_500
         self.border = border
         self.border_radius = border_radius
         self.width = width
@@ -30,7 +33,7 @@ class CustomContainer(ft.Container):
     def __init__(
         self,
         content,
-        visible=True,
+       
         padding=20,
         margin=0,
         bgcolor=None,
@@ -38,6 +41,7 @@ class CustomContainer(ft.Container):
         border_radius=None,
         width=None,
         height=None,
+       
     ):
         super().__init__()
         self.content = content
@@ -50,23 +54,14 @@ class CustomContainer(ft.Container):
         self.width = width
         self.height = height
         self.expand = False
-        self.visible = visible
 
 
 class CustomTextField(ft.TextField):
     def __init__(
-        self,
-        label,
-        hint_text=None,
-        prefix_icon=None,
-        error_style=None,
-        width=300,
-        password=False,
-        bgcolor="white",
-        border_radius=10,
+        self, label, hint_text=None, prefix_icon=None, error_style=None, width=250, password=None
     ):
         super().__init__()
-
+        
         self.password = password
         self.label = label
         self.hint_text = hint_text
@@ -78,9 +73,9 @@ class CustomTextField(ft.TextField):
         self.width = width
         self.bgcolor = ft.Colors.WHITE
         self.text_style = ft.TextStyle(color=ft.Colors.BLACK)
-        self.border_radius = border_radius
+
         self.cursor_color = ft.Colors.BLACK
-        self.bgcolor = bgcolor
+
         self.focused_color = ft.Colors.BLACK54
         self.text_size = 14
 

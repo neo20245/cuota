@@ -1,8 +1,9 @@
 from time import sleep
 import flet as ft
 
+
 def main(page: ft.Page):
-    pr = ft.ProgressRing(width=16, height=16, stroke_width = 2)
+    pr = ft.ProgressRing(width=16, height=16, stroke_width=2)
 
     page.add(
         ft.Text("Circular progress indicator", style="headlineSmall"),
@@ -18,5 +19,6 @@ def main(page: ft.Page):
         pr.value = i * 0.01
         sleep(0.1)
         page.update()
+
 
 ft.app(main)
