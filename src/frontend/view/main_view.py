@@ -1,5 +1,6 @@
 import flet as ft
 from backend.app_context import AppContext
+from frontend.flet_validations import FletValidator as flet_validator
 from frontend.ui_components import (
     CustomControllerBasePage,  # Verifica el nombre correcto aquí
     CustomContainer,
@@ -21,6 +22,11 @@ class MainViewPage:
             label="Usuario",
             hint_text="Escribe el nombre de usuario",
             prefix_icon=ft.Icons.PERSON,
+            disable=self.app_context.is_connected,
+            on_blur=self._on_usernmae_blur,
+
+
+
         )
         self.password_field = CustomTextField(
             label="Contraseña",
@@ -28,8 +34,9 @@ class MainViewPage:
             hint_text="escribe la contrasena",
             prefix_icon=ft.Icons.LOCK,
             can_reveal_password=True,
+            disable=self.app_context.is_connected
         )
-        self.save_checkbox = CustomCheckbox(label="Guardar contraseña")
+        self.save_checkbox = CustomCheckbox(label="Guardar contraseña",disabled=self.app_context.is_connected)
 
         self.status_message_container = ft.Card(
             content=CustomContainer(
@@ -53,7 +60,7 @@ class MainViewPage:
             opacity=0.0,  # Inicialmente invisible
             elevation=6,
             margin=ft.margin.symmetric(vertical=8),  # sin márgenes laterales
-            animate_opacity=500,  # Animación de opacidad
+            animate_opacity=100,  # Animación de opacidad
         )
 
         # Submit button
@@ -126,6 +133,17 @@ class MainViewPage:
 
     def _build_submit_section(self):
         return CustomContainer(content=self.submit_button)
+# validatios
+    def _on_usernmae_blur(self,e):
+
+        if not flet_validator.validate_username(str(self.username_field.value)) :
+            self.username_field.error_text ="Usuario No valido"
+            self.page.update()
+        else:
+            self.username_field.error_text =None
+            self.page.update()
+
+
 
     def on_submit(self, e):
         """Handle the submit button click"""
@@ -146,17 +164,3 @@ class MainViewPage:
             1.0 if self.app_context.is_connected else 0.0
         )
         self.page.update()
-
-    def _show_status_message(self):
-        """Display connection status message"""
-        status = "conectado" if self.app_context.is_connected else "desconectado"
-        color = (
-            ft.Colors.GREEN_400 if self.app_context.is_connected else ft.Colors.RED_400
-        )
-
-        self.status_message_container.content = ft.Text(
-            f"Proxy {status} con éxito", color=color, size=20
-        )
-        self.status_message_container.opacity = 1.0  # Mostrar el mensaje de estado
-        if self.page:
-            self.status_message_container.update()
