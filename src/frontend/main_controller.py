@@ -12,7 +12,7 @@ class MainController:
 
     def configure_view(self):
         self.page.window.width = 330
-        self.page.window.height = 560
+        self.page.window.height = 565
         self.page.padding = 0
         self.page.window.frameless = True
 

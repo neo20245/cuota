@@ -9,10 +9,6 @@ class FletValidator:
         return True
 
     @staticmethod
-    def validate_password(password: str) -> str:
-        """Valida la contraseña"""
-        if not password:
-            return "La contraseña es obligatoria"
-        elif len(password) < 6:
-            return "La contraseña debe tener al menos 6 caracteres"
-        return None  # Sin errores
+    def validate_password(password: str) -> bool:
+        return len(password) >= 8                              # Mínimo 8 caracteres
+                                    # No puede contener espacios

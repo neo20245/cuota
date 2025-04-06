@@ -34,7 +34,8 @@ class MainViewPage:
             hint_text="escribe la contrasena",
             prefix_icon=ft.Icons.LOCK,
             can_reveal_password=True,
-            disable=self.app_context.is_connected
+            disable=self.app_context.is_connected,
+            on_blur=self._on_password_blur
         )
         self.save_checkbox = CustomCheckbox(label="Guardar contraseña",disabled=self.app_context.is_connected)
 
@@ -47,7 +48,7 @@ class MainViewPage:
                     color="white",
                     text_align=ft.TextAlign.CENTER,
                 ),
-                padding=20,
+                padding=10,
                 gradient=ft.LinearGradient(
                     begin=ft.Alignment(-1, -1),
                     end=ft.Alignment(1, 1),
@@ -56,6 +57,7 @@ class MainViewPage:
                 # Borde fino blanco
                 border_radius=10,
                 expand=True,  # Hace que el CustomContainer ocupe todo el espacio disponible
+                alignment=ft.alignment.center
             ),
             opacity=0.0,  # Inicialmente invisible
             elevation=6,
@@ -95,8 +97,8 @@ class MainViewPage:
                     self._build_input_section(),
                     self._build_submit_section(),
                 ],
-                alignment=ft.MainAxisAlignment.CENTER,
-                spacing=4,
+                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                spacing=10,
             )
         )
         return layout
@@ -109,6 +111,8 @@ class MainViewPage:
                 alignment=ft.alignment.center,
             ),
             padding=6,
+            alignment= ft.alignment.center
+
         )
 
     def _build_input_section(self):
@@ -126,38 +130,59 @@ class MainViewPage:
                 ],
                 alignment=ft.MainAxisAlignment.START,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                spacing=6,
+                spacing=12,
             ),
-            height=170,
+            height=210,
+             alignment= ft.alignment.center
         )
 
     def _build_submit_section(self):
-        return CustomContainer(content=self.submit_button)
+        ft.alignment.bottom_center
+        return CustomContainer(content=self.submit_button,alignment=ft.alignment.center)
 # validatios
-    def _on_usernmae_blur(self,e):
+    def _on_usernmae_blur(self, e):
+        print("sdfsdf")
+        is_valid = flet_validator.validate_username(str(self.username_field.value))
+        self.username_field.error_text = "Usuario No valido" if not is_valid else None
 
-        if not flet_validator.validate_username(str(self.username_field.value)) :
-            self.username_field.error_text ="Usuario No valido"
-            self.page.update()
-        else:
-            self.username_field.error_text =None
-            self.page.update()
 
+    def _on_password_blur(self, e):
+
+        is_valid = flet_validator.validate_password(str(self.password_field.value))
+        print(is_valid)
+        self.password_field.error_text = "La contraseña debe tener al menos 8 caracteres." if not is_valid else None
 
 
     def on_submit(self, e):
-        """Handle the submit button click"""
-        user = self.username_field.value
-        password = self.password_field.value
-        save = self.save_checkbox.value
+        username = str(self.username_field.value).strip()
+        password = str(self.password_field.value).strip()
 
-        print(f"Usuario: {user}")
-        print(f"Contraseña: {password}")
-        print(f"Guardar contraseña: {save}")
+        # Validar username
+        if not flet_validator.validate_username(username):
+            self.username_field.error_text = ("Usuario no válido"
+)
+        # Validar password
+        if not flet_validator.validate_password(password):
+            self.password_field.error_text = "Contraseña no válida"
 
-        self.app_context.user = user
-        self.app_context.password = password
-        self.app_context.is_connected = not self.app_context.is_connected
+
+        self.page.update()
+
+        # Verificar si todo está correcto
+        if self.username_field.error_text is None and self.password_field.error_text is None:
+            print("Todo OK, enviando...")
+            # Tu lógica de autenticación o lo que necesites
+        else:
+            print("Errores en el formulario")
+
+
+
+
+
+
+        # self.app_context.user = self.username_field.value
+        # self.app_context.password = self.password_field.value
+        # self.app_context.is_connected = not self.app_context.is_connected
 
         # Mostrar el mensaje de estado cambiando la opacidad
         self.status_message_container.opacity = (

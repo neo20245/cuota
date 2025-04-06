@@ -40,12 +40,13 @@ class CustomContainer(ft.Container):
         width=None,
         height=None,
         expand=False,
+        alignment= None,
     ):
         super().__init__()
         self.expand = expand
         self.gradient = gradient
         self.content = content
-        self.alignment = ft.alignment.center
+        self.alignment = alignment
         self.padding = padding
         self.margin = margin
         self.bgcolor = bgcolor
@@ -79,6 +80,7 @@ class CustomTextField(ft.TextField):
         #meventos
         self.on_blur =on_blur
         #varibales
+
         self.height = height
         self.disabled= disable
         self.focused_color = ft.Colors.INDIGO_500
