@@ -1,42 +1,27 @@
 import flet as ft
 
-class AnimatedErrorExample(ft.UserControl):
-    def build(self):
-        self.username_field = ft.TextField(
-            label="Usuario",
-            hint_text="Escribe tu usuario",
-        )
-
-        self.error_text = ft.Text("", color=ft.colors.RED, size=12)
-        self.error_container = ft.AnimatedSwitcher(
-            child=self.error_text,  # <-- CORRECTO
-            transition="fade",
-            duration=300,
-        )
-
-        self.button = ft.ElevatedButton(text="Validar", on_click=self.validate)
-
-        return ft.Column(
-            controls=[
-                self.username_field,
-                self.error_container,
-                self.button
-            ],
-            spacing=10,
-        )
-
-    def validate(self, e):
-        value = self.username_field.value.strip()
-        if not value.isalpha():
-            self.error_container.content.value = "El usuario solo puede contener letras"
-        else:
-            self.error_container.content.value = ""
-        self.error_container.update()
 
 def main(page: ft.Page):
-    page.title = "Validación animada"
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-    page.add(AnimatedErrorExample())
+    page.window.title_bar_hidden = True
+    page.window.title_bar_buttons_hidden = True
 
-ft.app(target=main)
+    page.add(
+        ft.Row(
+            [
+                ft.WindowDragArea(
+                    ft.Container(
+                        ft.Text(
+                            "Drag this area to move, maximize and restore application window."
+                        ),
+                        bgcolor=ft.Colors.AMBER_300,
+                        padding=10,
+                    ),
+                    expand=True,
+                ),
+                ft.IconButton(ft.Icons.CLOSE, on_click=lambda _: page.window.close()),
+            ]
+        )
+    )
+
+
+ft.app(main)

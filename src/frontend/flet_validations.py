@@ -1,4 +1,3 @@
-
 class FletValidator:
     """Clase para realizar las validaciones del formulario"""
 
@@ -10,5 +9,5 @@ class FletValidator:
 
     @staticmethod
     def validate_password(password: str) -> bool:
-        return len(password) >= 8                              # Mínimo 8 caracteres
-                                    # No puede contener espacios
+        return len(password) >= 8  # Mínimo 8 caracteres
+        # No puede contener espacios

@@ -18,7 +18,7 @@ class CustomControllerBasePage(ft.Container):
         self.alignment = alignment
         self.padding = padding
         self.margin = margin
-        self.bgcolor = ft.Colors.BROWN_50
+
         self.border = border
         self.border_radius = border_radius
         self.width = width
@@ -40,9 +40,10 @@ class CustomContainer(ft.Container):
         width=None,
         height=None,
         expand=False,
-        alignment= None,
+        alignment=None,
     ):
         super().__init__()
+
         self.expand = expand
         self.gradient = gradient
         self.content = content
@@ -72,17 +73,16 @@ class CustomTextField(ft.TextField):
         suffix_icon=None,
         height=None,
         can_reveal_password=False,
-        disable= False,
-
-        on_blur= None
+        disable=False,
+        on_blur=None,
     ):
         super().__init__()
-        #meventos
-        self.on_blur =on_blur
-        #varibales
+        # meventos
+        self.on_blur = on_blur
+        # varibales
 
         self.height = height
-        self.disabled= disable
+        self.disabled = disable
         self.focused_color = ft.Colors.INDIGO_500
         self.suffix_icon = suffix_icon
         self.password = password

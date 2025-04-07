@@ -1,4 +1,5 @@
 import flet as ft
+from flet.core.embed_json_encoder import Margin
 from backend.app_context import AppContext
 from frontend.flet_validations import FletValidator as flet_validator
 from frontend.ui_components import (
@@ -24,9 +25,6 @@ class MainViewPage:
             prefix_icon=ft.Icons.PERSON,
             disable=self.app_context.is_connected,
             on_blur=self._on_usernmae_blur,
-
-
-
         )
         self.password_field = CustomTextField(
             label="Contraseña",
@@ -35,9 +33,11 @@ class MainViewPage:
             prefix_icon=ft.Icons.LOCK,
             can_reveal_password=True,
             disable=self.app_context.is_connected,
-            on_blur=self._on_password_blur
+            on_blur=self._on_password_blur,
         )
-        self.save_checkbox = CustomCheckbox(label="Guardar contraseña",disabled=self.app_context.is_connected)
+        self.save_checkbox = CustomCheckbox(
+            label="Guardar contraseña", disabled=self.app_context.is_connected
+        )
 
         self.status_message_container = ft.Card(
             content=CustomContainer(
@@ -47,22 +47,24 @@ class MainViewPage:
                     size=16,
                     color="white",
                     text_align=ft.TextAlign.CENTER,
+
                 ),
-                padding=10,
-                gradient=ft.LinearGradient(
-                    begin=ft.Alignment(-1, -1),
-                    end=ft.Alignment(1, 1),
-                    colors=["#6a11cb", "#2575fc"],  # degradado bonito
-                ),
+                margin=0,
+                padding=4,
+                bgcolor=ft.Colors.GREEN_500,
                 # Borde fino blanco
+
+
                 border_radius=10,
                 expand=True,  # Hace que el CustomContainer ocupe todo el espacio disponible
-                alignment=ft.alignment.center
+                alignment=ft.alignment.center,
             ),
-            opacity=0.0,  # Inicialmente invisible
+
+            opacity=1,  # Inicialmente invisible
             elevation=6,
-            margin=ft.margin.symmetric(vertical=8),  # sin márgenes laterales
-            animate_opacity=100,  # Animación de opacidad
+            margin=8,  # sin márgenes laterales
+            animate_opacity=100,
+            # Animación de opacidad
         )
 
         # Submit button
@@ -99,7 +101,11 @@ class MainViewPage:
                 ],
                 alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                 spacing=10,
-            )
+
+            ),
+            padding=0,
+            margin=0,
+
         )
         return layout
 
@@ -111,8 +117,7 @@ class MainViewPage:
                 alignment=ft.alignment.center,
             ),
             padding=6,
-            alignment= ft.alignment.center
-
+            alignment=ft.alignment.center,
         )
 
     def _build_input_section(self):
@@ -133,25 +138,27 @@ class MainViewPage:
                 spacing=12,
             ),
             height=210,
-             alignment= ft.alignment.center
+            alignment=ft.alignment.center,
         )
 
     def _build_submit_section(self):
         ft.alignment.bottom_center
-        return CustomContainer(content=self.submit_button,alignment=ft.alignment.center)
-# validatios
+        return CustomContainer(
+            content=self.submit_button, alignment=ft.alignment.center
+        )
+
+    # validatios
     def _on_usernmae_blur(self, e):
         print("sdfsdf")
         is_valid = flet_validator.validate_username(str(self.username_field.value))
         self.username_field.error_text = "Usuario No valido" if not is_valid else None
 
-
     def _on_password_blur(self, e):
-
         is_valid = flet_validator.validate_password(str(self.password_field.value))
         print(is_valid)
-        self.password_field.error_text = "La contraseña debe tener al menos 8 caracteres." if not is_valid else None
-
+        self.password_field.error_text = (
+            "La contraseña debe tener al menos 8 caracteres." if not is_valid else None
+        )
 
     def on_submit(self, e):
         username = str(self.username_field.value).strip()
@@ -159,33 +166,21 @@ class MainViewPage:
 
         # Validar username
         if not flet_validator.validate_username(username):
-            self.username_field.error_text = ("Usuario no válido"
-)
+            self.username_field.error_text = "Usuario no válido"
         # Validar password
         if not flet_validator.validate_password(password):
             self.password_field.error_text = "Contraseña no válida"
 
-
         self.page.update()
 
         # Verificar si todo está correcto
-        if self.username_field.error_text is None and self.password_field.error_text is None:
-            print("Todo OK, enviando...")
-            # Tu lógica de autenticación o lo que necesites
-        else:
-            print("Errores en el formulario")
-
-
-
-
-
 
         # self.app_context.user = self.username_field.value
         # self.app_context.password = self.password_field.value
         # self.app_context.is_connected = not self.app_context.is_connected
 
         # Mostrar el mensaje de estado cambiando la opacidad
-        self.status_message_container.opacity = (
-            1.0 if self.app_context.is_connected else 0.0
-        )
+        if not self.status_message_container.visible:
+            self.status_message_container.visible = True
+
         self.page.update()
